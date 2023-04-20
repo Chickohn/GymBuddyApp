@@ -173,7 +173,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd_HHmmss"
         //let fileName = "squat_\(dateFormatter.string(from: Date())).mov"
-        let fileName = "squat_\(theCurrentDate)_\(squatCounter)"
+        let fileName = "temp_\(theCurrentDate)_\(squatCounter)"
         let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(fileName).mov")
         movieFileOutput.startRecording(to: outputURL, recordingDelegate: self)
     }
@@ -207,6 +207,25 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
         
         guard let destinationURL = documentsURL?.appendingPathComponent("squat_\(theCurrentDate)_\(squatCounter).mov") else {
+            print("Error creating destination URL")
+            return nil
+        }
+        
+        do {
+            try fileManager.copyItem(at: inputFileURL, to: destinationURL)
+            print("Video file saved to Documents directory")
+            return destinationURL
+        } catch {
+            print("Error saving video file to Documents directory: \(error)")
+            return nil
+        }
+    }
+    
+    func saveVideoToDocumentsDirectoryDelete(inputFileURL: URL) -> URL? {
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        guard let destinationURL = documentsURL?.appendingPathComponent("delete.mov") else {
             print("Error creating destination URL")
             return nil
         }
@@ -302,7 +321,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                         //print(prediction.labelProbabilities["Squats"]!)
                         
                   
-                        if prediction.labelProbabilities["Squats"]! > 0.00065 {
+                        if prediction.labelProbabilities["Squats"]! > 0.0002 {
                             //print("SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED")
                             if !self!.isSquatOngoing {
                                 self!.isSquatOngoing = true
@@ -322,6 +341,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                                 self!.previousPoints.removeAll()
                                 //self?.deleteVideoFromLibrary(localIdentifier: self!.lastSavedVideo)
                                 //STOP RECORDING AND DELETE VIDEO HERE
+                                self!.setDate()
                                 self!.saveType = "delete"
                                 self!.stopRecordingVideo()
                             }
@@ -489,7 +509,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 extension ViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
-            print("Error recording movie: \(error.localizedDescription)")
+            //print("Error recording movie: \(error.localizedDescription)")
         } else {
             if saveType == "save" {
                 let videoURL = saveVideoToDocumentsDirectory(inputFileURL: outputFileURL)
@@ -508,11 +528,11 @@ extension ViewController: AVCaptureFileOutputRecordingDelegate {
                         print("Error uploading exercise: \(error.localizedDescription)")
                     }
                 }
-                if let url = saveVideoToDocumentsDirectory(inputFileURL: outputFileURL) {
-                    deleteVideoFile(at: url)
-                }
+//                if let url = saveVideoToDocumentsDirectory(inputFileURL: outputFileURL) {
+//                    deleteVideoFile(at: url)
+//                }
             } else if saveType == "delete"{
-                if let url = saveVideoToDocumentsDirectory(inputFileURL: outputFileURL) {
+                if let url = saveVideoToDocumentsDirectoryDelete(inputFileURL: outputFileURL) {
                     deleteVideoFile(at: url)
                 }
                 //saveVideoToDocumentsDirectory(inputFileURL: outputFileURL)

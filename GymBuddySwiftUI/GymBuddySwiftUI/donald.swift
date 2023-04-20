@@ -32,7 +32,7 @@ struct DonaldView: View {
             }
             
             Button("Upload Workout") {
-                uploadWorkout()
+                //DonaldView.uploadWorkout()
             }
             .padding()
             
@@ -155,8 +155,8 @@ struct DonaldView: View {
         task.resume()
     }
     
-    func uploadWorkout() {
-        let data = ["account" : 2,"startTime" : "2023-03-10 15:48:40","endTime" : "2023-03-10 16:48:40","title":"food ","description":"morgan"] as [String : Any]
+    static func uploadWorkout(workout: [String: Any]) {
+        let data = workout
         //convert into json file
         guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])else{
             print("Failed to convert to jsonfile")

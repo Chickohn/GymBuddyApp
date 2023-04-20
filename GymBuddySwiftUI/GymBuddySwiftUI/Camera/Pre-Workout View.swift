@@ -15,17 +15,18 @@ struct PreWorkout: View {
     @State private var creatingWorkout: Bool = false
     @AppStorage("accountId") private var accountId: Int?
     @State private var exerciseTypeRows: [ExerciseTypeRow] = []
-    @State private var startTime = Date()
-    
+    @State private var startTime = ""
+    @State private var endTime = ""
 
     var body: some View {
         NavigationView {
             if !creatingWorkout {
                 Button (action: {
                     creatingWorkout = true
-                    startTime = Date()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    startTime = dateFormatter.string(from: Date())
                     print(startTime)
-                    createWorkout()
                 }) {
                     Text("Start a workout")
                         .padding(.all, 10)
@@ -63,6 +64,17 @@ struct PreWorkout: View {
 //                        }
                         Button(action: {
                             //done
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                            endTime = dateFormatter.string(from: Date())
+                            print(endTime)
+                            DonaldView.uploadWorkout(workout: ["account" : accountId!,
+                                                               "startTime" : startTime,
+                                                               "endTime" : endTime,
+                                                               "title": workoutTitle == "" ? "Workout" : workoutTitle,
+                                                               "description": "description goes here...",
+                                                               "xp" : 20])
+                            creatingWorkout = false
                         }) {
                             Text("Finish")
                                 .foregroundColor(Color(.white))
@@ -117,37 +129,6 @@ struct PreWorkout: View {
 //                Text("Create Workout")
 //            })
         }
-    }
-
-    func createWorkout() {
-        // Set the value of start_time to be the current datetime
-        // Add your workout creation logic here
-//        let workoutCreation = Workout(id: -1, account: accountId!, startTime: ISO8601DateFormatter().string(from: Date()), endTime: ISO8601DateFormatter().string(from: Date()), title: workoutTitle, description: "description goes here...", xp: 0)
-//
-//            guard let url = URL(string: "http://\(ip):8000/api/workouts/\(accountId!)") else { return }
-//            var request = URLRequest(url: url)
-//            request.httpMethod = "POST"
-//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//            do {
-//                let jsonData = try JSONEncoder().encode(workoutCreation)
-//                request.httpBody = jsonData
-//            } catch {
-//                print("Error encoding workout data: \(error)")
-//                return
-//            }
-//
-//            URLSession.shared.dataTask(with: request) { data, response, error in
-//                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-//                    print("Error creating workout: \(error?.localizedDescription ?? "Unknown error")")
-//                    return
-//                }
-//
-//                print("Workout created successfully")
-//            }.resume()
-        let workoutStartTime = Date()
-        print(workoutStartTime)
-        
     }
     
     func getLatestSquatFiles() -> (videoURL: URL?, csvURL: URL?) {
