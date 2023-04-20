@@ -9,8 +9,8 @@ import SwiftUI
 import Foundation
 
 struct UserProfileView: View {
-    
     @AppStorage("accountId") private var accountId: Int?
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @State private var account: Account?
 
     var body: some View {
@@ -38,7 +38,7 @@ struct UserProfileView: View {
                                 .foregroundColor(Color("text"))
                             
                             HStack {
-                                Text("Level: \(Int(floor(Double(1238)/100)))")
+                                Text("Level: \(1 + Int(floor(Double(account?.xp ?? 0)/100)))")
                                     .font(.headline)
                                     .foregroundColor(Color("text"))
                                 
@@ -47,10 +47,16 @@ struct UserProfileView: View {
                                         .frame(width: 125, height: 10)
                                         .foregroundColor(.gray)
                                     Capsule()
-                                        .frame(width: CGFloat(1238%100) * 1.25, height: 10)
+                                        .frame(width: CGFloat((account?.xp ?? 0)%100) * 1.25, height: 10)
                                         .foregroundColor(.green)
                                         //.animation(.linear(duration: 0.1))
                                 }
+                                
+                                Image(systemName: "flame")
+                                
+                                Text("\(account?.streak ?? 0)")
+                                    .foregroundColor(Color("text"))
+                                    .offset(x: -5)
                             }
                         }
                         .padding(.leading)
@@ -78,12 +84,13 @@ struct UserProfileView: View {
                     RecentWorkouts()
                     
             }
-            .navigationBarItems(trailing:
-                                    Button("Refetch account info") {
-                fetchAccountInfo()
-                //print(account ?? "none")
-            }.foregroundColor(Color("accent")).padding(3).background(Color("icons")).clipShape(RoundedRectangle(cornerRadius:15)).padding()
-            )
+//            .navigationBarItems(trailing:
+//                                    Button("Refetch account info") {
+//                fetchAccountInfo()
+//                //print(accountId!)
+//                print(account ?? "none")
+//            }.foregroundColor(Color("accent")).padding(3).background(Color("icons")).clipShape(RoundedRectangle(cornerRadius:15)).padding()
+//            )
             .padding()
             .background(Color("background"))
             .onAppear {
@@ -93,7 +100,7 @@ struct UserProfileView: View {
     }
     
     func fetchAccountInfo() {
-        guard let accountId = accountId, let url = URL(string: "http://\(ip):8000/api/account/\(accountId)") else { return }
+        guard let url = URL(string: "http://\(ip):8000/api/account/\(accountId!)") else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -116,6 +123,7 @@ struct UserProfileView: View {
 }
 
 struct RecentWorkouts: View {
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @AppStorage("accountId") private var accountId: Int?
     @State private var workouts: [Workout] = []
 
@@ -134,7 +142,7 @@ struct RecentWorkouts: View {
     }
 
     func fetchWorkouts() {
-        guard let accountId = accountId, let url = URL(string: "http://\(ip):8000/api/workouts/\(accountId)/") else { return }
+        guard let url = URL(string: "http://\(ip):8000/api/workouts/\(accountId ?? 1)/") else { return }
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -157,30 +165,6 @@ struct RecentWorkouts: View {
     }
 }
 
-struct WorkoutRow: View {
-    let workout: Workout
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("Workout ID: \(workout.id)")
-            Text("Start Time: \(workout.startTime)")
-            Text("End Time: \(workout.endTime)")
-            
-            if let startTime = ISO8601DateFormatter().date(from: workout.startTime),
-               let endTime = ISO8601DateFormatter().date(from: workout.endTime) {
-                let duration = endTime.timeIntervalSince(startTime) / 60
-                Text("Duration: \(duration, specifier: "%.0f") minutes")
-            } else {
-                Text("Duration: N/A")
-            }
-        }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(10)
-        .padding(.horizontal)
-    }
-}
-
 
 struct WorkoutRows: View {
     let workout: Workout
@@ -189,10 +173,23 @@ struct WorkoutRows: View {
         NavigationLink(destination: ExerciseView(workout: workout)) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Workout \(workout.id)")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("accent"))
+                    HStack {
+                        Text("\(workout.title)")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("accent"))
+                        
+                        Spacer()
+                        
+                        Text("\(String(workout.startTime.prefix(16).suffix(5)))")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("text"))
+                    }
+                    
+                    Text("\(workout.description)")
+                        .font(.subheadline)
+                        .foregroundColor(Color("text"))
                     
                     if let startTime = ISO8601DateFormatter().date(from: workout.startTime),
                        let endTime = ISO8601DateFormatter().date(from: workout.endTime) {

@@ -42,7 +42,7 @@ struct MainView: View {
                 .tag(0)
             
             // Second tab
-            SocialView()
+            FriendsView()
                 .tabItem {
                     Image(systemName: "person.3")
                     Text("Social")
@@ -127,4 +127,4 @@ struct apiWorkout: Identifiable, Hashable {
     let endTime: String
 }
 
-public var mainAccount: Account = Account(id: 0, first_name: "", last_name: "", username: "", password: "", email: "", xp: 0)
+//public var mainAccount: Account = Account(id: 0, first_name: "", last_name: "", username: "", password: "", email: "", xp: 0, streak: 0)

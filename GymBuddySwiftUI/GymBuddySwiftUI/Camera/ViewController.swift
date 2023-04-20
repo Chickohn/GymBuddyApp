@@ -18,6 +18,7 @@ typealias SquatClassifier = TheSquatClassifier
 // MARK: - ViewController
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @AppStorage("accountId") private var accountId: Int?
     
     // Camera preview view which shows the live feed from the device's camera
@@ -213,7 +214,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         do {
             try fileManager.copyItem(at: inputFileURL, to: destinationURL)
-            print("Video file saved to Documents directory")
+            //print("Video file saved to Documents directory")
             return destinationURL
         } catch {
             print("Error saving video file to Documents directory: \(error)")
@@ -232,7 +233,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         do {
             try fileManager.copyItem(at: inputFileURL, to: destinationURL)
-            print("Video file saved to Documents directory")
+            //print("Video file saved to Documents directory")
             return destinationURL
         } catch {
             print("Error saving video file to Documents directory: \(error)")
@@ -244,7 +245,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let fileManager = FileManager.default
         do {
             try fileManager.removeItem(at: fileURL)
-            print("Video file deleted")
+            //print("Video file deleted")
         } catch {
             print("Error deleting video file: \(error)")
         }
@@ -318,11 +319,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     if prediction.labelProbabilities["Squats"] != nil {
                    
                         //print(self!.noSquatFrameCounter)
-                        //print(prediction.labelProbabilities["Squats"]!)
+                        print(prediction.labelProbabilities["Squats"]!)
                         
                   
                         if prediction.labelProbabilities["Squats"]! > 0.0002 {
-                            //print("SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED")
+                            print("SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED")
                             if !self!.isSquatOngoing {
                                 self!.isSquatOngoing = true
                                 self!.squatNumber += 1
@@ -500,24 +501,24 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         } catch {
             print("Error: Failed to perform image request handler")
         }
-        
-
     }
-    
 }
 
 extension ViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
-            //print("Error recording movie: \(error.localizedDescription)")
+            print("Error recording movie: \(error.localizedDescription)")
         } else {
             if saveType == "save" {
                 let videoURL = saveVideoToDocumentsDirectory(inputFileURL: outputFileURL)
                 //globalVideoURL = videoURL
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let dateTime = dateFormatter.string(from: Date())
                 uploadExerciseData(
                     accountId: accountId!,
                     exerciseType: "squat",
-                    datetime: "\(Date())",
+                    datetime: "\(dateTime)",
                     videoURL: videoURL!,
                     csvURL: csvURL!
                 ) { result in

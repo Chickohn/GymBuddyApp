@@ -13,6 +13,7 @@ struct PreWorkout: View {
     //@State private var reps: [Exercise] = []
     @State private var isRecordingViewPresented: Bool = false
     @State private var creatingWorkout: Bool = false
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @AppStorage("accountId") private var accountId: Int?
     @State private var exerciseTypeRows: [ExerciseTypeRow] = []
     @State private var startTime = ""
@@ -41,27 +42,6 @@ struct PreWorkout: View {
                             .font(.system(size: 25))
                             .fontWeight(.bold)
                         Spacer()
-//                        Button(action: {
-//                            print(getLatestSquatFiles())
-////                            uploadExerciseData(
-////                                accountId: accountId!,
-////                                exerciseType: "squat",
-////                                datetime: "\(Date())",
-////                                videoURL: globalVideoURL!,
-////                                csvURL: globalCsvURL!
-////                            ) { result in
-////                                switch result {
-////                                case .success(let exercise):
-////                                    print("Exercise uploaded successfully: \(exercise)")
-////                                case .failure(let error):
-////                                    print("Error uploading exercise: \(error.localizedDescription)")
-////                                }
-////                            }
-////                            DonaldView.uploadVideo(globalVideoURL!)
-//
-//                        }) {
-//                            Text("+")
-//                        }
                         Button(action: {
                             //done
                             let dateFormatter = DateFormatter()
@@ -93,7 +73,13 @@ struct PreWorkout: View {
                                 .background(Color(.systemGray5))
                                 .cornerRadius(10)
                         }
-                    }.padding(.all, 15)
+                    }
+                    .padding(.all, 15)
+                    .background(Color("icons"))
+                    
+                    HStack {
+                        GrowingTextEditor()
+                    }
                     ScrollView {
                         VStack(alignment: .leading, spacing: 10) {
                             ForEach(exerciseTypeRows.indices, id: \.self) { index in
@@ -105,7 +91,9 @@ struct PreWorkout: View {
                     
 
                     Button(action: {
-                        isRecordingViewPresented = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            isRecordingViewPresented = true
+                        }
                     }) {
                         Text("Record")
                             .font(.title2)
@@ -187,7 +175,7 @@ struct ExerciseTypeRowView: View {
                     Spacer()
                     Text(exerciseRep.quality)
                         .padding(.all, 5)
-                        .background(Color(exerciseRep.quality == "good" ? .green : .red))
+                        .background(Color(exerciseRep.quality == "good" ? .green : .red).opacity(0.5))
                         .cornerRadius(10)
                     Spacer()
                     Text("\(formatDate(exerciseRep.timestamp))")
@@ -292,5 +280,63 @@ enum RepQuality: Codable {
 struct Pre_Workout_View_Previews: PreviewProvider {
     static var previews: some View {
         PreWorkout()
+    }
+}
+
+struct GrowingTextEditor: View {
+    @State private var text: String = ""
+    @State private var isEditing: Bool = false
+    @State private var editorHeight: CGFloat = 40
+    
+    private let maxLength: Int = 140
+    private let minHeight: CGFloat = 40
+    private let maxHeight: CGFloat = 100
+    
+    var body: some View {
+        VStack {
+            ZStack(alignment: .leading) {
+                if text.isEmpty && !isEditing {
+                    Text("Start typing...")
+                        .foregroundColor(Color(.placeholderText))
+                        .padding(.leading, 10)
+                }
+                TextEditor(text: $text)
+                    .onChange(of: text) { value in
+                        if text.count > maxLength {
+                            text = String(text.prefix(maxLength))
+                        }
+                        updateHeight()
+                    }
+                    .onTapGesture {
+                        isEditing = true
+                    }
+                    .frame(minHeight: editorHeight, maxHeight: maxHeight)
+                    .padding(.leading, 5)
+                    .background(Color(.systemBackground))
+                    //.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(.black)))
+            }
+            .frame(minHeight: minHeight, maxHeight: maxHeight)
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .padding()
+            .shadow(radius: 4, x: -2, y: 2)
+            .onAppear(perform: updateHeight)
+        }.overlay(!isEditing ? Text("Enter Description") : Text(""))
+    }
+    
+    private func updateHeight() {
+        let newSize = CGSize(width: UIScreen.main.bounds.width - 32, height: CGFloat.infinity)
+        let currentHeight = text.height(containerWidth: newSize.width)
+        editorHeight = max(minHeight, min(currentHeight, maxHeight))
+    }
+}
+
+extension String {
+    func height(containerWidth: CGFloat) -> CGFloat {
+        let font = UIFont.systemFont(ofSize: 17)
+        let constraintBox = CGSize(width: containerWidth, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintBox, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: font], context: nil)
+        
+        return boundingBox.height
     }
 }

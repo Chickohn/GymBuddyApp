@@ -36,12 +36,6 @@ struct DonaldView: View {
             }
             .padding()
             
-//            if let videoURL = videoURL {
-//                Button("Upload Video") {
-//                    uploadVideo(videoURL)
-//                }
-//                .padding()
-//            }
         }
     }
     

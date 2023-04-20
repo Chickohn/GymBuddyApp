@@ -10,6 +10,8 @@ import SwiftUI
 struct LeaderboardView: View {
     @State private var selectedLeague = 0
     let leagues = ["Beginner", "Intermediate", "Advanced", "Elite"]
+    @State private var users: [AccountSearch] = []
+    @StateObject private var leaderboardAPI = LeaderboardAPI()
 
     var body: some View {
         NavigationView {
@@ -29,15 +31,20 @@ struct LeaderboardView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        ForEach(0..<10) { index in
-                            LeaderboardRow(rank: index + 1)
-                        }
+                        ForEach(users) { user in
+                                                    LeaderboardRow(user: user, rank: users.firstIndex(where: { $0.id == user.id })! + 1)
+                                                }
                     }
                     .padding(.horizontal)
                 }
 
                 Spacer()
             }
+            .onAppear(perform: {
+                leaderboardAPI.fetchLeaderboard { fetchedUsers in
+                    users = fetchedUsers
+                }
+            })
             .navigationBarTitleDisplayMode(.inline)
             .background(Color("BackgroundGray").edgesIgnoringSafeArea(.all))
         }
@@ -45,6 +52,7 @@ struct LeaderboardView: View {
 }
 
 struct LeaderboardRow: View {
+    let user: AccountSearch
     let rank: Int
 
     var body: some View {
@@ -55,22 +63,23 @@ struct LeaderboardRow: View {
                 .foregroundColor(Color("GymGreen"))
 
             VStack(alignment: .leading) {
-                Text("User \(rank)")
-                    .font(.headline)
-                    .fontWeight(.semibold)
+                            Text("\(user.first_name) \(user.last_name)")
+                                .font(.headline)
+                                .fontWeight(.semibold)
 
-                HStack {
-                    Text("XP: 2500")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+                            HStack {
+                                Text("XP: \(user.xp)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
 
-                    Spacer()
+                                Spacer()
 
-                    Text("Level 5")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-            }
+                                // Assuming you have a function to calculate user levels based on XP
+                                Text("Level \(1 + Int(floor(Double(user.xp)/100)))")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                        }
             .padding(.leading)
 
             Spacer()
@@ -89,6 +98,24 @@ struct LeaderboardRow: View {
         .background(Color.white)
         .cornerRadius(10)
         .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 2)
+    }
+}
+
+class LeaderboardAPI: ObservableObject {
+    func fetchLeaderboard(completion: @escaping ([AccountSearch]) -> ()) {
+        guard let url = URL(string: "http://\(ip):8000/api/leaderboard") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                let decoder = JSONDecoder()
+
+                if let leaderboard = try? decoder.decode([AccountSearch].self, from: data) {
+                    DispatchQueue.main.async {
+                        completion(leaderboard)
+                    }
+                }
+            }
+        }.resume()
     }
 }
 

@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D0FB07529E350E500655DE2 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0FB07429E350E500655DE2 /* CameraViewController.swift */; };
-		1D0FB09729E596E300655DE2 /* OLDLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0FB09629E596E300655DE2 /* OLDLoginView.swift */; };
 		1D286BCE29E1B19A00D5DD3D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D286BCD29E1B19900D5DD3D /* HomePage.swift */; };
 		1D286BD029E1B45800D5DD3D /* SocialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D286BCF29E1B45800D5DD3D /* SocialView.swift */; };
-		1D286BD229E1B5CA00D5DD3D /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D286BD129E1B5CA00D5DD3D /* CameraView.swift */; };
 		1D286BD429E1B90700D5DD3D /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D286BD329E1B90700D5DD3D /* LeaderboardView.swift */; };
 		1D28D43729BE7A140018FCE0 /* GymBuddySwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28D43629BE7A140018FCE0 /* GymBuddySwiftUIApp.swift */; };
 		1D28D43B29BE7A180018FCE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D28D43A29BE7A180018FCE0 /* Assets.xcassets */; };
@@ -19,23 +16,18 @@
 		1D28D44329BE7A180018FCE0 /* GymBuddySwiftUI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D28D44129BE7A180018FCE0 /* GymBuddySwiftUI.xcdatamodeld */; };
 		1D28D44D29BEBE900018FCE0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28D44C29BEBE900018FCE0 /* MainView.swift */; };
 		1D6C98F429E1C1B7007A1F31 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6C98F329E1C1B7007A1F31 /* ProfileView.swift */; };
-		2806C41629E963A4002D4847 /* Getter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2806C41529E963A4002D4847 /* Getter.swift */; };
 		283520F229ECA516000DCD86 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283520F129ECA516000DCD86 /* ExerciseView.swift */; };
 		28503D4229F002F6009841A0 /* Pre-Workout View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28503D4129F002F6009841A0 /* Pre-Workout View.swift */; };
 		28696D9729EF3ADB00CB75CE /* TheSquatClassifier.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 28696D9629EF3ADB00CB75CE /* TheSquatClassifier.mlpackage */; };
 		28696D9B29EF3BA400CB75CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28696D9A29EF3BA400CB75CE /* ViewController.swift */; };
-		28696D9D29EF3BBD00CB75CE /* FilesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28696D9C29EF3BBD00CB75CE /* FilesListViewController.swift */; };
-		28696D9F29EF3BCB00CB75CE /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28696D9E29EF3BCB00CB75CE /* MenuController.swift */; };
 		288078C429EF4753003AA978 /* donald.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288078C329EF4753003AA978 /* donald.swift */; };
+		289F41A829F1937E00F89B7F /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F41A729F1937E00F89B7F /* FriendsView.swift */; };
 		28CED79F29E8937B00BD2E23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CED79E29E8937B00BD2E23 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D0FB07429E350E500655DE2 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		1D0FB09629E596E300655DE2 /* OLDLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLDLoginView.swift; sourceTree = "<group>"; };
 		1D286BCD29E1B19900D5DD3D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		1D286BCF29E1B45800D5DD3D /* SocialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialView.swift; sourceTree = "<group>"; };
-		1D286BD129E1B5CA00D5DD3D /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		1D286BD329E1B90700D5DD3D /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		1D28D43329BE7A130018FCE0 /* GymBuddySwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymBuddySwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D28D43629BE7A140018FCE0 /* GymBuddySwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymBuddySwiftUIApp.swift; sourceTree = "<group>"; };
@@ -44,14 +36,12 @@
 		1D28D44229BE7A180018FCE0 /* GymBuddySwiftUI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GymBuddySwiftUI.xcdatamodel; sourceTree = "<group>"; };
 		1D28D44C29BEBE900018FCE0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1D6C98F329E1C1B7007A1F31 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		2806C41529E963A4002D4847 /* Getter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Getter.swift; sourceTree = "<group>"; };
 		283520F129ECA516000DCD86 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
 		28503D4129F002F6009841A0 /* Pre-Workout View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pre-Workout View.swift"; sourceTree = "<group>"; };
 		28696D9629EF3ADB00CB75CE /* TheSquatClassifier.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TheSquatClassifier.mlpackage; sourceTree = "<group>"; };
 		28696D9A29EF3BA400CB75CE /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		28696D9C29EF3BBD00CB75CE /* FilesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesListViewController.swift; sourceTree = "<group>"; };
-		28696D9E29EF3BCB00CB75CE /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		288078C329EF4753003AA978 /* donald.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = donald.swift; sourceTree = "<group>"; };
+		289F41A729F1937E00F89B7F /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		28CED79E29E8937B00BD2E23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,21 +77,18 @@
 			children = (
 				1D28D43629BE7A140018FCE0 /* GymBuddySwiftUIApp.swift */,
 				1D28D44C29BEBE900018FCE0 /* MainView.swift */,
-				1D286BCD29E1B19900D5DD3D /* HomePage.swift */,
-				1D0FB09629E596E300655DE2 /* OLDLoginView.swift */,
 				28CED79E29E8937B00BD2E23 /* LoginView.swift */,
-				2806C41529E963A4002D4847 /* Getter.swift */,
+				1D286BCD29E1B19900D5DD3D /* HomePage.swift */,
 				1D286BCF29E1B45800D5DD3D /* SocialView.swift */,
+				289F41A729F1937E00F89B7F /* FriendsView.swift */,
 				288078C329EF4753003AA978 /* donald.swift */,
 				28696D9329EF305E00CB75CE /* Camera */,
-				1D286BD129E1B5CA00D5DD3D /* CameraView.swift */,
 				1D286BD329E1B90700D5DD3D /* LeaderboardView.swift */,
 				1D6C98F329E1C1B7007A1F31 /* ProfileView.swift */,
 				283520F129ECA516000DCD86 /* ExerciseView.swift */,
 				1D28D44129BE7A180018FCE0 /* GymBuddySwiftUI.xcdatamodeld */,
 				1D28D43A29BE7A180018FCE0 /* Assets.xcassets */,
 				1D28D43F29BE7A180018FCE0 /* Persistence.swift */,
-				1D0FB07429E350E500655DE2 /* CameraViewController.swift */,
 				28696DA029EF3C2B00CB75CE /* Preview Content */,
 			);
 			path = GymBuddySwiftUI;
@@ -112,8 +99,6 @@
 			children = (
 				28503D4129F002F6009841A0 /* Pre-Workout View.swift */,
 				28696D9A29EF3BA400CB75CE /* ViewController.swift */,
-				28696D9C29EF3BBD00CB75CE /* FilesListViewController.swift */,
-				28696D9E29EF3BCB00CB75CE /* MenuController.swift */,
 				28696D9629EF3ADB00CB75CE /* TheSquatClassifier.mlpackage */,
 			);
 			path = Camera;
@@ -195,26 +180,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D0FB07529E350E500655DE2 /* CameraViewController.swift in Sources */,
+				289F41A829F1937E00F89B7F /* FriendsView.swift in Sources */,
 				28503D4229F002F6009841A0 /* Pre-Workout View.swift in Sources */,
 				288078C429EF4753003AA978 /* donald.swift in Sources */,
-				2806C41629E963A4002D4847 /* Getter.swift in Sources */,
 				1D28D44329BE7A180018FCE0 /* GymBuddySwiftUI.xcdatamodeld in Sources */,
 				28696D9729EF3ADB00CB75CE /* TheSquatClassifier.mlpackage in Sources */,
-				28696D9F29EF3BCB00CB75CE /* MenuController.swift in Sources */,
-				1D0FB09729E596E300655DE2 /* OLDLoginView.swift in Sources */,
 				1D6C98F429E1C1B7007A1F31 /* ProfileView.swift in Sources */,
 				1D286BCE29E1B19A00D5DD3D /* HomePage.swift in Sources */,
 				1D28D44029BE7A180018FCE0 /* Persistence.swift in Sources */,
 				1D286BD429E1B90700D5DD3D /* LeaderboardView.swift in Sources */,
 				28696D9B29EF3BA400CB75CE /* ViewController.swift in Sources */,
-				28696D9D29EF3BBD00CB75CE /* FilesListViewController.swift in Sources */,
 				28CED79F29E8937B00BD2E23 /* LoginView.swift in Sources */,
 				1D28D44D29BEBE900018FCE0 /* MainView.swift in Sources */,
 				1D28D43729BE7A140018FCE0 /* GymBuddySwiftUIApp.swift in Sources */,
 				1D286BD029E1B45800D5DD3D /* SocialView.swift in Sources */,
 				283520F229ECA516000DCD86 /* ExerciseView.swift in Sources */,
-				1D286BD229E1B5CA00D5DD3D /* CameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
