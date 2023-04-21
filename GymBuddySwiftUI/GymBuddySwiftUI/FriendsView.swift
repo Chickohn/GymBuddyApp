@@ -40,6 +40,12 @@ struct FriendsView: View {
                                     HStack {
                                         Text(request.username)
                                         Spacer()
+                                        Button(action: {
+                                            sendFriendRequest(account1ID: request.id, account2ID: accountId!)
+                                            fetchPendingRequests()
+                                        }) {
+                                            Image(systemName: "person.badge.plus")
+                                        }
                                     }
                                 }
                                     
@@ -83,10 +89,10 @@ struct FriendsView: View {
                                                          startPoint: UnitPoint(x: 0, y: -2),
                                                          endPoint: UnitPoint(x: 0.55, y: 1))
                                          )
-                                    .frame(width: 200, height: 40)
+                                    .frame(width: 170, height: 40)
                                     .shadow(radius: 2, x: -3, y: 3)
                             )
-                            .position(x: proxy.safeAreaInsets.leading + 120, y: proxy.safeAreaInsets.top - 10)
+                            .position(x: proxy.safeAreaInsets.leading + 105, y: proxy.safeAreaInsets.top - 10)
                     })
                 //            .navigationBarTitle("Add Friends")
                 //            .foregroundColor(Color("accent"))
@@ -95,7 +101,7 @@ struct FriendsView: View {
     }
     
     private func fetchPendingRequests() {
-        let pendingRequestsUrl = "http://\(ip):8000/api/account/\(accountId!)"
+        let pendingRequestsUrl = "http://\(ip):8000/api/account/\(accountId ?? 1)"
 
         guard let url = URL(string: pendingRequestsUrl) else {
             print("Invalid URL")

@@ -98,7 +98,7 @@ struct Friends: View {
                 .padding(.top)
             Text("See what everyone's been getting up to...")
                 .font(.system(size: 18))
-                .foregroundColor(Color(.systemGray))
+                .foregroundColor(Color("text"))
                 .padding(.horizontal, -10)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
@@ -115,7 +115,7 @@ struct Friends: View {
                             workouts = fetchedWorkouts
                         }
                     })
-            .background(Color("background").opacity(0.8))
+            .background(Color.clear)
             .cornerRadius(10)
             .padding(.bottom, 15)
             .padding(.horizontal, 15)
@@ -163,7 +163,7 @@ struct friendCard: View {
             .background(LinearGradient(gradient: Gradient(colors: [Color("background"), Color(.systemGray3)]), startPoint: .topLeading, endPoint: .bottomTrailing))
             .overlay(RoundedRectangle(cornerRadius:10).stroke(Color("text").opacity(0.4)))
             .cornerRadius(10)
-            .shadow(color: Color("background"), radius: 2, x: 0, y: 2)
+            //.shadow(color: Color("background"), radius: 2, x: 0, y: 2)
         }
     }
 }
@@ -173,7 +173,7 @@ class FriendsAPI: ObservableObject {
     @AppStorage("accountId") private var accountId: Int?
     
     func fetchFriends(completion: @escaping ([AccountSearch], [Workout]) -> ()) {
-        let accountURL = URL(string: "http://\(ip):8000/api/account/\(accountId!)")
+        let accountURL = URL(string: "http://\(ip):8000/api/account/\(accountId ?? 1)")
         //var workoutsURL = URL(string: "http://\(ip):8000/api/workouts/")
         
         let group = DispatchGroup()
@@ -318,9 +318,10 @@ struct DetailView: View {
                 .padding(.bottom, 5)
                 .overlay(
                     RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color("background"), lineWidth: 2)
+                        .stroke(Color(.white), lineWidth: 2)
+                        .padding(.bottom, -5)
                         .shadow(color: .black, radius: 2, x: 0, y: 5)
-                        .padding(.bottom, 10)
+                        .padding(.bottom, 5)
                         .clipShape(
                             RoundedRectangle(cornerRadius: 15)
                         )
@@ -383,7 +384,7 @@ struct LeaderboardOverview: View {
                 .padding(.top)
             Text("Meet the high achievers...")
                 .font(.system(size: 18))
-                .foregroundColor(Color(.systemGray))
+                .foregroundColor(Color("text"))
                 .padding(.horizontal, -10)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
@@ -408,7 +409,7 @@ struct LeaderboardOverview: View {
                     users = fetchedUsers
                 }
             })
-            .background(Color("background").opacity(0.8))
+            .background(Color.clear)
             .cornerRadius(10)
             .padding(.bottom, 15)
             .padding(.horizontal, 15)
@@ -457,6 +458,6 @@ struct leaderboardOverviewCard: View {
 //                                   endRadius: 80))
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("text").opacity(0.4)))
         .cornerRadius(10)
-        .shadow(color: Color("background"), radius: 2, x: 0, y: 2)
+        //.shadow(color: Color("background"), radius: 2, x: 0, y: 2)
     }
 }

@@ -79,7 +79,7 @@ struct LoginPage: View {
 //                MainView()
 //            }.navigationBarBackButtonHidden(true).navigationBarHidden(true)
 //            .padding()
-        }.onAppear(perform: {loggingIn = true})
+        }.onAppear(perform: {loggingIn = false})
     }
     
     func login() {

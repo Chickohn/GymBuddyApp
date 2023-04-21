@@ -40,7 +40,6 @@
 		28696D9A29EF3BA400CB75CE /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		288078C329EF4753003AA978 /* apiRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = apiRequests.swift; sourceTree = "<group>"; };
 		289F41A729F1937E00F89B7F /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
-		289F41AA29F1F76600F89B7F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../../Library/Mobile Documents/com~apple~CloudDocs/Documents/GymBuddySwiftUI/GymBuddySwiftUI/Info.plist"; sourceTree = "<group>"; };
 		28CED79E29E8937B00BD2E23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,7 +86,6 @@
 				1D28D44129BE7A180018FCE0 /* GymBuddySwiftUI.xcdatamodeld */,
 				1D28D43A29BE7A180018FCE0 /* Assets.xcassets */,
 				1D28D43F29BE7A180018FCE0 /* Persistence.swift */,
-				289F41AA29F1F76600F89B7F /* Info.plist */,
 				28696DA029EF3C2B00CB75CE /* Preview Content */,
 			);
 			path = GymBuddySwiftUI;

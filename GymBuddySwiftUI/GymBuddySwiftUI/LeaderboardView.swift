@@ -26,7 +26,7 @@ struct LeaderboardView: View {
                         Text(leagues[index]).tag(index)
                     }
                 }
-                .background(Color("tabs"))
+                //.background(Color("tabs"))
                 .cornerRadius(8)
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
@@ -40,8 +40,8 @@ struct LeaderboardView: View {
                                                     LeaderboardRow(user: user, rank: users.firstIndex(where: { $0.id == user.id })! + 1)
                                                 }
                     }
-                    .padding(.horizontal)
-                }
+                    .padding(.all)
+                }.padding(.bottom, 60)
 
                 Spacer()
             }
@@ -53,7 +53,7 @@ struct LeaderboardView: View {
             .offset(y: 70)
             .overlay(
                 GeometryReader { proxy in
-                    Text("Gym Leaderboard")
+                    Text("Leaderboard")
                         .font(.title)
                         .foregroundColor(Color("accent"))
                         .background(
@@ -63,10 +63,10 @@ struct LeaderboardView: View {
                                                      startPoint: UnitPoint(x: 0, y: -2),
                                                      endPoint: UnitPoint(x: 0.55, y: 1))
                                      )
-                                .frame(width: 250, height: 40)
+                                .frame(width: 180, height: 40)
                                 .shadow(radius: 2, x: -3, y: 3)
                         )
-                        .position(x: proxy.safeAreaInsets.leading + 145, y: proxy.safeAreaInsets.top - 10)
+                        .position(x: proxy.safeAreaInsets.leading + 110, y: proxy.safeAreaInsets.top - 10)
                 }
 //                }
             )
@@ -93,7 +93,7 @@ struct LeaderboardRow: View {
             Text("\(rank)")
                 .font(.title2)
                 .fontWeight(.bold)
-                .foregroundColor(Color("GymGreen"))
+                .foregroundColor(Color("accent"))
 
             VStack(alignment: .leading) {
                             Text("\(user.first_name) \(user.last_name)")
@@ -120,8 +120,9 @@ struct LeaderboardRow: View {
 
             ZStack {
                 Circle()
-                    .fill(Color("GymGreen"))
+                    .fill(Color("buttons").opacity(0.6))
                     .frame(width: 50, height: 50)
+                    .shadow(radius:2, x: -1, y: 2)
 
                 Text("\(rank)")
                     .foregroundColor(.white)

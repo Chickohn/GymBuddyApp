@@ -25,7 +25,7 @@ struct ExerciseView: View {
             }
             .background(RoundedRectangle(cornerRadius: 25)
                 .fill(LinearGradient(gradient: Gradient(
-                    colors: [Color("tabs"), Color("background").opacity(0.75)]),
+                    colors: [Color("buttons").opacity(0.25), Color("background").opacity(0.75)]),
                                      startPoint: UnitPoint(x: 0.5, y: 0),
                                      endPoint: UnitPoint(x: 0.5, y: 0.7))))
             .clipShape(RoundedRectangle(cornerRadius: 30))
