@@ -373,6 +373,11 @@ struct DetailView: View {
     }
 }
 
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//
+//    }
+//}
 
 struct LeaderboardOverview: View {
     @State private var users: [AccountSearch] = []

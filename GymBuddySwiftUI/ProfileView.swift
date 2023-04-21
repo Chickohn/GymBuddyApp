@@ -165,7 +165,7 @@ struct RecentWorkouts: View {
                     WorkoutRows(workout: workout, deleteMe: $deleteMe)
                 }
             }
-        }
+        }.padding(.bottom, 60)
         .onAppear() {
             fetchWorkouts()
         }

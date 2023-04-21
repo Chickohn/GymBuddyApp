@@ -270,6 +270,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     var saveType = ""
     
+    private var previousThresholds: [Double] = []
+    private var previousSquatThresholds: [Double] = [0]
+    
     // Process the body tracking request result
     private func processBodyTracking(request: VNRequest, error: Error?) {
         guard let results = request.results as? [VNHumanBodyPoseObservation] else { return }
@@ -319,11 +322,18 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     if prediction.labelProbabilities["Squats"] != nil {
                    
                         //print(self!.noSquatFrameCounter)
-                        print(prediction.labelProbabilities["Squats"]!)
+                        //self!.previousThresholds.append(prediction.labelProbabilities["Squats"]!)
+                        //print(prediction.labelProbabilities["Squats"]!)
+                        //print(self!.previousThresholds)
+                        let averageThreshold = self!.previousThresholds.reduce(0, +) / Double(self!.previousThresholds.count)
+                        let averageSquatThreshold = self!.previousSquatThresholds.reduce(0, +) / Double(self!.previousSquatThresholds.count)
+                        print("\(averageThreshold) \(averageSquatThreshold) \(averageThreshold + (averageSquatThreshold - averageThreshold)/2)")
+            
                         
                   
-                        if prediction.labelProbabilities["Squats"]! > 0.0002 {
+                        if prediction.labelProbabilities["Squats"]! > averageThreshold + (averageSquatThreshold - averageThreshold)/2 {
                             print("SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED SQUAT DETECTED")
+                            self!.previousSquatThresholds.append(prediction.labelProbabilities["Squats"]!)
                             if !self!.isSquatOngoing {
                                 self!.isSquatOngoing = true
                                 self!.squatNumber += 1
@@ -338,6 +348,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                             self!.noSquatFrameCounter = 0
                                                     
                         } else {// If squat is not detected
+                            self!.previousThresholds.append(prediction.labelProbabilities["Squats"]!)
                             if (self!.previousPoints.count >= 15) {
                                 self!.previousPoints.removeAll()
                                 //self?.deleteVideoFromLibrary(localIdentifier: self!.lastSavedVideo)
